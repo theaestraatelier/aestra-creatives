@@ -1,0 +1,853 @@
+<title>Aestra Creatives</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+/* Concept: a colourful little studio shop. Two windows (Gift Finder, Story Studio),
+   each opening on an illustrated scene. Colour-coded icon tiles do the wayfinding. */
+:root {
+  --bg: #FAF8FF; --surface: #FFFFFF; --ink: #26223F; --muted: #5F5A7D; --line: #E2DCF3;
+  --tint: #EFE9FB; --accent: #4A3FA6; --accent-ink: #FFFFFF; --gold: #E0A21B;
+  --rose-ink: #8F2A58; --deep: #2E2B4A;
+  --p1: #E9E3FB; --p1i: #4A3FA6;  --p2: #FBE3EE; --p2i: #9C2F5E;
+  --p3: #FCEFC9; --p3i: #7A5000;  --p4: #D8F1EC; --p4i: #0F6256;
+  --p5: #FFE2D6; --p5i: #A13E1B;  --p6: #DCEBFB; --p6i: #1F5391;
+  --a-rose: #F06C9B; --a-coral: #FF8A5B; --a-sun: #F7B733; --a-teal: #2FB5A0; --a-sky: #4E9BE8; --a-indigo: #6A5BD6;
+  --display: 'Bricolage Grotesque', 'Trebuchet MS', system-ui, sans-serif;
+  --text: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16142A; --surface: #201D3A; --ink: #F1EEFF; --muted: #AAA4CC; --line: #36315C;
+    --tint: #2B2750; --accent: #BBA9F0; --accent-ink: #1B1735; --gold: #EDBB52; --rose-ink: #F4B6D0; --deep: #0E0C1F;
+    --p1: #302A5C; --p1i: #CDBFFF; --p2: #4A2640; --p2i: #F7B7D3; --p3: #4A3A12; --p3i: #F0CB72;
+    --p4: #153F3A; --p4i: #86DACB; --p5: #4C2A1D; --p5i: #FFB495; --p6: #1E3555; --p6i: #A3CBF5;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #16142A; --surface: #201D3A; --ink: #F1EEFF; --muted: #AAA4CC; --line: #36315C;
+  --tint: #2B2750; --accent: #BBA9F0; --accent-ink: #1B1735; --gold: #EDBB52; --rose-ink: #F4B6D0; --deep: #0E0C1F;
+  --p1: #302A5C; --p1i: #CDBFFF; --p2: #4A2640; --p2i: #F7B7D3; --p3: #4A3A12; --p3i: #F0CB72;
+  --p4: #153F3A; --p4i: #86DACB; --p5: #4C2A1D; --p5i: #FFB495; --p6: #1E3555; --p6i: #A3CBF5;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--text); font-size: 16px; line-height: 1.55;
+  padding-block: 20px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1020px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.1; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.1rem, 6.4vw, 3.5rem); font-weight: 800; letter-spacing: -0.025em; }
+h2 { font-size: 1.35rem; font-weight: 700; }
+h3 { font-size: 1.05rem; font-weight: 700; }
+p { margin: 0; }
+a { color: var(--accent); }
+svg { display: block; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+[data-h="1"] { --bgh: var(--p1); --inkh: var(--p1i); }
+[data-h="2"] { --bgh: var(--p2); --inkh: var(--p2i); }
+[data-h="3"] { --bgh: var(--p3); --inkh: var(--p3i); }
+[data-h="4"] { --bgh: var(--p4); --inkh: var(--p4i); }
+[data-h="5"] { --bgh: var(--p5); --inkh: var(--p5i); }
+[data-h="6"] { --bgh: var(--p6); --inkh: var(--p6i); }
+.sp-fill { fill: var(--gold); }
+
+/* header */
+.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-bottom: 18px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-size: 1.2rem; text-decoration: none; color: var(--ink); }
+.brand svg { width: 26px; height: 26px; }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tabs a { text-decoration: none; color: var(--ink); border: 2px solid var(--line); background: var(--surface); padding: 8px 18px; border-radius: 999px; font-weight: 700; font-size: .95rem; }
+.tabs a[aria-current="page"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 20px 32px; align-items: center; padding: 28px 0 34px; }
+.hero-copy { display: grid; gap: 16px; }
+.hero-art { width: 100%; max-width: 400px; justify-self: center; }
+.hero-art svg { width: 100%; height: auto; }
+@media (max-width: 760px) { .hero { grid-template-columns: minmax(0, 1fr); } .hero-art { max-width: 300px; order: -1; } }
+.eyebrow { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.lead { font-size: 1.1rem; color: var(--muted); max-width: 52ch; }
+.stats { display: flex; flex-wrap: wrap; gap: 8px; }
+.stat { background: var(--surface); border: 2px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: .9rem; color: var(--muted); }
+.stat b { color: var(--ink); font-family: var(--display); font-size: 1.05rem; margin-right: 4px; }
+
+/* panels, steps and controls */
+.panel { background: var(--surface); border: 2px solid var(--line); border-radius: 18px; padding: 22px; }
+.step { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 4px 14px; padding: 20px 0; border-top: 2px dashed var(--line); }
+.step:first-of-type { border-top: 0; padding-top: 4px; }
+.num { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-family: var(--display); font-weight: 800; }
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+legend { font-family: var(--display); font-weight: 700; font-size: 1.1rem; padding: 0; margin-bottom: 2px; float: left; width: 100%; }
+legend + * { clear: both; }
+.hint { color: var(--muted); font-size: .9rem; margin-bottom: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.chip { position: relative; }
+.chip input, .tile input, .fmt input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; width: 100%; height: 100%; }
+.chip > span { display: inline-flex; align-items: center; gap: 6px; padding: 8px 15px; border: 2px solid var(--line); border-radius: 999px; background: var(--bg); font-size: .95rem; }
+.chip input:checked + span { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 700; }
+.chip input:focus-visible + span, .tile input:focus-visible + span, .fmt input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+.chip input:disabled + span, .tile input:disabled + span { opacity: .4; }
+.chip .rs { color: var(--gold); font-weight: 800; letter-spacing: .05em; }
+.chip input:checked + span .rs { color: inherit; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 118px), 1fr)); gap: 10px; margin-top: 10px; }
+.tile { position: relative; }
+.tile > span { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 8px 12px; border-radius: 14px; background: var(--bgh); color: var(--inkh); border: 2px solid transparent; font-weight: 700; font-size: .88rem; text-align: center; height: 100%; }
+.tile input:checked + span { border-color: var(--accent); box-shadow: 0 0 0 3px var(--tint); }
+.tile input:checked + span::after { content: "\2713"; position: absolute; top: 6px; right: 6px; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-size: 12px; line-height: 20px; }
+.btn { font: inherit; font-weight: 700; background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 12px; padding: 12px 22px; cursor: pointer; text-decoration: none; display: inline-block; text-align: center; }
+.btn.ghost { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+.btn.small { padding: 8px 14px; font-size: .9rem; }
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.err { color: var(--rose-ink); font-size: .9rem; min-height: 1.2em; margin-top: 8px; }
+.fine { font-size: .85rem; color: var(--muted); }
+
+/* gift results */
+.results { margin-top: 32px; display: grid; gap: 16px; }
+.results-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; }
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); }
+.gift { position: relative; background: var(--surface); border: 2px solid var(--line); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.art { position: relative; height: 104px; background: var(--bgh); color: var(--inkh); display: grid; place-items: center; }
+.art::before { content: ""; position: absolute; inset: 0; background: radial-gradient(var(--inkh) 1px, transparent 1.6px) 0 0 / 14px 14px; opacity: .2; }
+.art svg { position: relative; width: 54px; height: 54px; }
+.gift .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.gift p { color: var(--muted); font-size: .95rem; }
+.diy { background: var(--tint); border-radius: 10px; padding: 8px 10px; font-size: .88rem; color: var(--ink); }
+.diy b { color: var(--accent); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.tag { font-size: .78rem; padding: 3px 10px; border-radius: 999px; background: var(--tint); color: var(--ink); }
+.tag.price { background: var(--p2); color: var(--p2i); font-weight: 700; }
+.save { position: absolute; top: 10px; right: 10px; width: 38px; height: 38px; border-radius: 50%; border: 0; background: var(--surface); color: var(--p2i); cursor: pointer; display: grid; place-items: center; }
+.save svg { width: 20px; height: 20px; }
+.save[aria-pressed="true"] svg { fill: currentColor; }
+.shortlist { background: var(--p2); border-radius: 18px; padding: 18px; display: grid; gap: 10px; }
+.shortlist h2 { color: var(--p2i); }
+.shortlist ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.shortlist li { background: var(--surface); border-radius: 999px; padding: 4px 6px 4px 14px; display: flex; align-items: center; gap: 6px; font-size: .92rem; }
+.shortlist li button { border: 0; background: var(--tint); color: var(--ink); width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-size: 14px; line-height: 1; }
+
+/* story studio */
+.split { display: grid; gap: 24px; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; }
+@media (max-width: 860px) { .split { grid-template-columns: minmax(0, 1fr); } }
+.aside { display: grid; gap: 18px; }
+.sticky { position: sticky; top: 16px; }
+@media (max-width: 860px) { .sticky { position: static; } }
+.fmts { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); margin-top: 10px; }
+.fmt { position: relative; }
+.fmt > span { display: grid; gap: 4px; padding: 14px; border: 2px solid var(--line); border-radius: 14px; background: var(--bg); height: 100%; }
+.fmt input:checked + span { border-color: var(--accent); background: var(--tint); box-shadow: 0 0 0 3px var(--tint); }
+.fmt svg { width: 44px; height: 34px; margin-bottom: 4px; }
+.fmt strong { font-family: var(--display); }
+.fmt .pr { font-weight: 700; color: var(--accent); }
+.addon { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border: 2px solid var(--line); border-radius: 12px; margin-top: 10px; cursor: pointer; }
+.addon input { margin-top: 4px; width: 18px; height: 18px; flex: none; accent-color: var(--accent); }
+.addon span { flex: 1; }
+.addon b { color: var(--accent); }
+.price-card { background: var(--deep); color: #F1EEFF; border-radius: 18px; padding: 20px; display: grid; gap: 10px; }
+.price-card .big { font-family: var(--display); font-size: 2.4rem; font-weight: 800; line-height: 1; }
+.price-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: .92rem; color: #CFC8F5; }
+.price-card li { display: flex; justify-content: space-between; gap: 10px; }
+.price-card .fine { color: #B7B0E2; }
+.comic { background: var(--tint); border-radius: 18px; padding: 16px; display: grid; gap: 10px; }
+.comic svg { width: 100%; height: auto; border-radius: 10px; }
+.caps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; font-size: .78rem; color: var(--muted); }
+.comic blockquote { margin: 0; font-family: var(--display); font-size: 1.05rem; line-height: 1.35; font-weight: 500; }
+.steps { margin: 0; padding-left: 20px; display: grid; gap: 8px; color: var(--muted); }
+.steps b { color: var(--ink); }
+label.field { display: grid; gap: 6px; margin-bottom: 16px; font-weight: 500; }
+label.field small { font-weight: 400; color: var(--muted); }
+input[type="text"], input[type="date"], select, textarea { font: inherit; color: var(--ink); background: var(--bg); border: 2px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%; min-width: 0; }
+textarea { min-height: 96px; resize: vertical; }
+.two { display: grid; gap: 0 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+.consent { display: flex; gap: 10px; align-items: flex-start; margin: 4px 0 18px; font-size: .92rem; }
+.consent input { margin-top: 4px; width: 18px; height: 18px; flex: none; accent-color: var(--accent); }
+.summary { margin-top: 24px; display: grid; gap: 12px; }
+.summary textarea { min-height: 260px; font-size: .92rem; }
+.status { color: var(--muted); font-size: .9rem; min-height: 1.3em; }
+.foot { margin-top: 56px; padding-top: 20px; border-top: 2px dashed var(--line); display: grid; gap: 6px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="sp" viewBox="-12 -12 24 24"><path class="sp-fill" d="M0-12L3-3 12 0 3 3 0 12-3 3-12 0-3-3z"/></symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#gifts">
+      <svg viewBox="-12 -12 24 24" aria-hidden="true"><path class="sp-fill" d="M0-12L3-3 12 0 3 3 0 12-3 3-12 0-3-3z"/></svg>
+      <span id="brand-name">Aestra Creatives</span>
+    </a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#gifts" id="tab-gifts">Gift Finder</a>
+      <a href="#stories" id="tab-stories">Story Studio</a>
+    </nav>
+  </header>
+
+  <!-- ===================== GIFT FINDER ===================== -->
+  <section id="view-gifts" aria-labelledby="gifts-title">
+    <div class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Gift Finder</p>
+        <h1 id="gifts-title">Find a gift they will actually use.</h1>
+        <p class="lead">Answer five quick questions and get a short list of ideas matched to who it is for, your budget, their interests and the mood you want.</p>
+        <div class="stats" id="stats"></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 360 280">
+          <circle cx="190" cy="150" r="118" fill="var(--p1)"/>
+          <circle cx="302" cy="62" r="26" fill="var(--p3)"/>
+          <circle cx="52" cy="88" r="16" fill="var(--p2)"/>
+          <circle cx="318" cy="206" r="9" fill="var(--p4)"/>
+          <rect x="20" y="248" width="320" height="6" rx="3" fill="var(--line)"/>
+          <!-- left box -->
+          <rect x="44" y="192" width="76" height="58" rx="8" fill="var(--a-teal)"/>
+          <rect x="38" y="176" width="88" height="22" rx="6" fill="var(--a-sky)"/>
+          <rect x="76" y="176" width="12" height="74" fill="var(--a-sun)"/>
+          <!-- right box -->
+          <rect x="258" y="172" width="70" height="78" rx="8" fill="var(--a-indigo)"/>
+          <rect x="252" y="154" width="82" height="24" rx="6" fill="var(--a-rose)"/>
+          <rect x="286" y="154" width="12" height="96" fill="var(--a-sun)"/>
+          <!-- big box -->
+          <rect x="120" y="152" width="124" height="98" rx="10" fill="var(--a-rose)"/>
+          <rect x="112" y="128" width="140" height="32" rx="8" fill="var(--a-coral)"/>
+          <rect x="174" y="128" width="16" height="122" fill="var(--a-sun)"/>
+          <path d="M182 126c-26-38-62-14-38 8z" fill="var(--a-sun)"/>
+          <path d="M182 126c26-38 62-14 38 8z" fill="var(--a-sun)"/>
+          <circle cx="182" cy="128" r="8" fill="var(--a-coral)"/>
+          <use href="#sp" x="66" y="44" width="26" height="26"/>
+          <use href="#sp" x="256" y="92" width="22" height="22"/>
+          <use href="#sp" x="140" y="58" width="16" height="16"/>
+          <use href="#sp" x="296" y="132" width="14" height="14"/>
+          <use href="#sp" x="30" y="150" width="14" height="14"/>
+        </svg>
+      </div>
+    </div>
+
+    <form class="panel" id="gift-form" novalidate>
+      <div class="step"><span class="num">1</span>
+        <fieldset><legend>Who is it for?</legend><div class="chips" id="q-who"></div></fieldset>
+      </div>
+      <div class="step"><span class="num">2</span>
+        <fieldset><legend>What is your budget?</legend><div class="chips" id="q-budget"></div></fieldset>
+      </div>
+      <div class="step"><span class="num">3</span>
+        <fieldset><legend>What are they into?</legend><p class="hint">Pick up to three.</p><div class="tiles" id="q-interest"></div></fieldset>
+      </div>
+      <div class="step"><span class="num">4</span>
+        <fieldset><legend>What is the occasion?</legend><div class="chips" id="q-occasion"></div></fieldset>
+      </div>
+      <div class="step"><span class="num">5</span>
+        <fieldset><legend>What kind of gift? <span class="fine">(optional)</span></legend><div class="chips" id="q-style"></div></fieldset>
+      </div>
+      <div class="row">
+        <button class="btn" type="submit">Show gift ideas</button>
+        <button class="btn ghost" type="button" id="gift-reset">Start over</button>
+      </div>
+      <p class="err" id="gift-err" role="alert"></p>
+    </form>
+
+    <div class="results" id="gift-results" aria-live="polite" hidden>
+      <div class="results-head">
+        <h2 id="results-title">Ideas for you</h2>
+        <button class="btn ghost small" type="button" id="gift-shuffle">Show different ideas</button>
+      </div>
+      <div class="grid" id="gift-grid"></div>
+    </div>
+
+    <div class="results" id="shortlist" hidden>
+      <div class="shortlist">
+        <h2>Your shortlist</h2>
+        <ul id="shortlist-items"></ul>
+        <div class="row">
+          <button class="btn small" type="button" id="copy-list">Copy my shortlist</button>
+          <span class="status" id="list-status" role="status"></span>
+        </div>
+      </div>
+    </div>
+    <p class="fine" style="margin-top:18px">Some links are affiliate links. If you buy through them I may earn a small commission, at no extra cost to you. Prices vary, so check the current price before you buy.</p>
+  </section>
+
+  <!-- ===================== STORY STUDIO ===================== -->
+  <section id="view-stories" aria-labelledby="stories-title" hidden>
+    <div class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Story Studio</p>
+        <h1 id="stories-title">A story starring someone you love.</h1>
+        <p class="lead">Tell me about your person. I write an illustrated story with them as the hero and send it as a PDF. In every story the hero saves the day on their own, with a little help from friends.</p>
+        <div class="stats" id="story-stats"></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 360 280">
+          <circle cx="180" cy="140" r="120" fill="var(--p1)"/>
+          <circle cx="310" cy="70" r="20" fill="var(--p5)"/>
+          <circle cx="48" cy="96" r="14" fill="var(--p4)"/>
+          <!-- skyline -->
+          <path d="M80 176V132h10v-10h8v10h10v44z" fill="var(--a-indigo)"/>
+          <path d="M254 176V138h12v-8h8v8h12v38z" fill="var(--a-teal)"/>
+          <!-- book -->
+          <path d="M44 186Q112 160 180 188V256Q112 230 44 258Z" fill="var(--surface)" stroke="var(--accent)" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M316 186Q248 160 180 188V256Q248 230 316 258Z" fill="var(--surface)" stroke="var(--accent)" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M70 204q42-12 90 6M70 220q42-12 90 6M70 236q42-12 90 6" stroke="var(--line)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M290 204q-42-12-90 6M290 220q-42-12-90 6M290 236q-42-12-90 6" stroke="var(--line)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <!-- hero with torch -->
+          <path d="M164 184L172 120H188L196 184Z" fill="var(--a-coral)"/>
+          <circle cx="180" cy="106" r="12" fill="var(--a-sun)"/>
+          <path d="M190 134L214 108" stroke="var(--a-coral)" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="218" cy="100" r="20" fill="var(--a-sun)" opacity=".35"/>
+          <circle cx="218" cy="100" r="8" fill="var(--a-sun)"/>
+          <use href="#sp" x="84" y="60" width="24" height="24"/>
+          <use href="#sp" x="262" y="96" width="18" height="18"/>
+          <use href="#sp" x="140" y="48" width="14" height="14"/>
+          <use href="#sp" x="300" y="150" width="14" height="14"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="split">
+      <div>
+        <form class="panel" id="story-form">
+          <h2 style="margin-bottom:6px">Build your story</h2>
+          <fieldset style="margin-top:8px">
+            <legend>Choose a format</legend>
+            <div class="fmts" id="q-format"></div>
+          </fieldset>
+
+          <div class="two" style="margin-top:20px">
+            <label class="field" for="f-for">Their first name
+              <input type="text" id="f-for" required autocomplete="off">
+            </label>
+            <label class="field" for="f-pronoun">Pronouns
+              <select id="f-pronoun">
+                <option>She / her</option><option>He / him</option><option>They / them</option>
+              </select>
+            </label>
+          </div>
+          <div class="two">
+            <label class="field" for="f-relation">They are your
+              <select id="f-relation" required>
+                <option value="">Choose one</option>
+                <option>Best friend</option><option>Partner</option><option>Sibling</option>
+                <option>Parent</option><option>Cousin</option><option>Colleague</option>
+                <option>Teacher or mentor</option><option>Child</option><option>Myself</option>
+              </select>
+            </label>
+            <label class="field" for="f-occasion">Occasion
+              <select id="f-occasion" required>
+                <option value="">Choose one</option>
+                <option>Birthday</option><option>Anniversary</option><option>Wedding</option>
+                <option>Farewell</option><option>Graduation</option><option>Thank you</option>
+                <option>Get well soon</option><option>Just because</option>
+              </select>
+            </label>
+          </div>
+
+          <fieldset style="margin-bottom:16px"><legend>Where does the story happen?</legend><div class="chips" id="q-world"></div></fieldset>
+          <fieldset style="margin-bottom:16px"><legend>Mood</legend><div class="chips" id="q-mood"></div></fieldset>
+          <fieldset style="margin-bottom:16px"><legend>Art style</legend><div class="chips" id="q-style-art"></div></fieldset>
+          <fieldset style="margin-bottom:16px"><legend>Language</legend><div class="chips" id="q-lang"></div></fieldset>
+
+          <label class="field" for="f-skill" style="margin-top:20px">Their special skill or superpower <small>(optional)</small>
+            <input type="text" id="f-skill" autocomplete="off" placeholder="Reads maps upside down, bakes anything, talks to pigeons">
+          </label>
+          <label class="field" for="f-details">Three true things about them
+            <small>Habits, favourite things, an inside joke, a place you love. The more specific, the better.</small>
+            <textarea id="f-details" required></textarea>
+          </label>
+          <div class="two">
+            <label class="field" for="f-cameo">Cameo character <small>(optional)</small>
+              <input type="text" id="f-cameo" autocomplete="off" placeholder="A pet, a friend, a grandparent">
+            </label>
+            <label class="field" for="f-date">Needed by
+              <input type="date" id="f-date" required>
+            </label>
+          </div>
+          <label class="field" for="f-message">A message for the last page <small>(optional)</small>
+            <textarea id="f-message" style="min-height:72px"></textarea>
+          </label>
+
+          <fieldset style="margin-bottom:16px"><legend>Extras</legend>
+            <div id="q-addons"></div>
+          </fieldset>
+
+          <div class="two">
+            <label class="field" for="f-name">Your name
+              <input type="text" id="f-name" required autocomplete="name">
+            </label>
+            <label class="field" for="f-contact">WhatsApp number or email
+              <input type="text" id="f-contact" required autocomplete="off">
+            </label>
+          </div>
+          <label class="consent" for="f-consent">
+            <input type="checkbox" id="f-consent" required>
+            <span>I have this person's permission to share these details, and I understand the illustrations are made with AI tools.</span>
+          </label>
+          <button class="btn" type="submit">Create my request</button>
+          <p class="err" id="story-err" role="alert"></p>
+        </form>
+
+        <div class="summary" id="summary" hidden aria-live="polite">
+          <h2>Your request is ready</h2>
+          <p class="fine" id="summary-help"></p>
+          <textarea id="summary-text" readonly aria-label="Your request text"></textarea>
+          <div class="row">
+            <button class="btn" type="button" id="copy-btn">Copy request</button>
+            <a class="btn ghost" id="wa-link" href="#" target="_blank" rel="noopener" hidden>Open WhatsApp</a>
+          </div>
+          <p class="status" id="copy-status" role="status"></p>
+        </div>
+      </div>
+
+      <aside class="aside">
+        <div class="price-card sticky">
+          <p class="eyebrow" style="color:#B7B0E2">Your estimate</p>
+          <div class="big" id="price">₹399</div>
+          <ul id="price-lines"></ul>
+          <p class="fine" id="price-note"></p>
+        </div>
+        <div class="comic">
+          <p class="eyebrow">Sample strip (invented characters)</p>
+          <svg viewBox="0 0 360 112" role="img" aria-label="Three comic panels: a dark city, a hero arriving with a torch, two friends under stars">
+            <rect x="0" y="0" width="112" height="112" rx="10" fill="var(--deep)"/>
+            <g fill="var(--a-indigo)" opacity=".7"><rect x="8" y="62" width="16" height="50"/><rect x="28" y="44" width="20" height="68"/><rect x="52" y="70" width="14" height="42"/><rect x="70" y="52" width="18" height="60"/><rect x="92" y="74" width="14" height="38"/></g>
+            <use href="#sp" x="14" y="10" width="12" height="12"/><use href="#sp" x="80" y="16" width="9" height="9"/><use href="#sp" x="52" y="28" width="7" height="7"/>
+            <rect x="124" y="0" width="112" height="112" rx="10" fill="var(--a-coral)"/>
+            <rect x="158" y="34" width="44" height="78" rx="4" fill="var(--deep)"/>
+            <path d="M168 112L174 76H186L192 112Z" fill="var(--a-indigo)"/>
+            <circle cx="180" cy="68" r="8" fill="var(--a-sun)"/>
+            <path d="M188 84L204 66" stroke="var(--a-indigo)" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="207" cy="62" r="14" fill="#fff" opacity=".35"/><circle cx="207" cy="62" r="6" fill="var(--a-sun)"/>
+            <rect x="248" y="0" width="112" height="112" rx="10" fill="var(--a-teal)"/>
+            <path d="M276 112L282 76H294L300 112Z" fill="var(--a-rose)"/><circle cx="288" cy="68" r="8" fill="var(--a-sun)"/>
+            <path d="M312 112L318 82H330L336 112Z" fill="var(--a-indigo)"/><circle cx="324" cy="74" r="8" fill="var(--a-sun)"/>
+            <use href="#sp" x="264" y="12" width="14" height="14"/><use href="#sp" x="326" y="14" width="18" height="18"/><use href="#sp" x="300" y="40" width="9" height="9"/>
+          </svg>
+          <div class="caps"><span>The lights go out</span><span>A torch arrives</span><span>The adventure starts</span></div>
+          <blockquote>"Meera had one birthday plan and one small problem: the whole city had just lost its lights."</blockquote>
+        </div>
+        <div class="panel">
+          <h3 style="margin-bottom:10px">How it works</h3>
+          <ol class="steps">
+            <li><b>Send the form.</b> You get a request to send me.</li>
+            <li><b>I confirm.</b> We agree the price and date.</li>
+            <li><b>I write and illustrate.</b> Story and dialogue are written by me. Illustrations are AI-assisted.</li>
+            <li><b>You get a PDF.</b> Share it or print it as a gift.</li>
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p class="fine">Details you share are used only to write your story.</p>
+    <p class="fine">© 2026 Aestra Creatives. Not affiliated with any brand mentioned in gift searches.</p>
+  </footer>
+</div>
+
+<script>
+/* ===== Edit these before you publish ===== */
+const CONFIG = {
+  brand: 'Aestra Creatives',
+  whatsapp: '',       // digits only with country code, e.g. '919812345678'. Leave '' to hide the WhatsApp button.
+  email: '',          // shown as text for people to copy. Leave '' to hide.
+  amazonTag: '',      // your Amazon Associates tracking id. Leave '' until approved.
+  formats: {
+    mini:     { name: 'Mini comic',     pages: '1 page, 4 panels',     price: 199, days: 4 },
+    classic:  { name: 'Classic story',  pages: '6 illustrated pages',  price: 399, days: 7 },
+    extended: { name: 'Extended story', pages: '12 illustrated pages', price: 699, days: 12 }
+  },
+  addons: {
+    wallpaper: { name: 'Phone wallpaper made from the cover', price: 49,  note: 'A matching lock-screen image.' },
+    rush:      { name: 'Rush delivery',                       price: 149, note: 'About half the usual time.' }
+  }
+};
+
+/* ===== Icons (24px line icons) ===== */
+const ICONS = {
+  books: '<path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/>',
+  music: '<path d="M9 18V6l10-2v12"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="16" r="2"/>',
+  selfcare: '<path d="M12 3c3 4 6 6.5 6 10a6 6 0 0 1-12 0c0-3.5 3-6 6-10z"/>',
+  craft: '<path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 1.5-2s0-2 1.5-2h2a4 4 0 0 0 4-4c0-5-4.5-10-9-10z"/><circle cx="8" cy="11" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16.5" cy="10" r="1"/>',
+  tech: '<rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/>',
+  food: '<path d="M5 8h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"/><path d="M16 9h2a2.5 2.5 0 0 1 0 5h-2"/><path d="M8 3v2M12 3v2"/>',
+  travel: '<rect x="4" y="8" width="16" height="12" rx="2"/><path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/>',
+  home: '<path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-5h4v5"/>',
+  memories: '<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.500-7 10-7 10z"/>',
+  fitness: '<path d="M3 10v4M6 8v8M18 8v8M21 10v4M6 12h12"/>',
+  gaming: '<rect x="3" y="8" width="18" height="10" rx="5"/><path d="M8 11v4M6 13h4"/><circle cx="16" cy="12" r=".8"/><circle cx="18" cy="14" r=".8"/>',
+  fashion: '<path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 0 1 6 0"/>',
+  heart: '<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.500-7 10-7 10z"/>'
+};
+const icon = (k, s) => '<svg viewBox="0 0 24 24" width="' + s + '" height="' + s + '" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[k] + '</svg>';
+
+/* ===== Labels ===== */
+const LABELS = {
+  who: { friend: 'Friend', partner: 'Partner', sibling: 'Sibling', parent: 'Parent', colleague: 'Colleague', kid: 'Kid or teen', mentor: 'Teacher or mentor' },
+  budget: { 1: 'Under ₹500', 2: '₹500 to ₹1,500', 3: '₹1,500 to ₹3,000', 4: '₹3,000 and up' },
+  interest: { books: 'Books & writing', music: 'Music', selfcare: 'Self-care', craft: 'Art & craft', tech: 'Tech', food: 'Food & drink',
+              travel: 'Travel', home: 'Home & decor', memories: 'Memories & fun', fitness: 'Fitness', gaming: 'Games & puzzles', fashion: 'Fashion' },
+  occasion: { birthday: 'Birthday', anniversary: 'Anniversary', wedding: 'Wedding', festival: 'Festival', thanks: 'Thank you',
+              housewarming: 'Housewarming', graduation: 'Graduation', getwell: 'Get well soon', any: 'Just because' },
+  style: { practical: 'Practical', sentimental: 'Sentimental', fun: 'Fun', treat: 'A treat' }
+};
+const HUE = { books: 1, home: 1, music: 2, fashion: 2, food: 3, gaming: 3, selfcare: 4, fitness: 4, craft: 5, memories: 5, tech: 6, travel: 6 };
+
+/* ===== Gift data. Short codes keep the list readable =====
+   who: f friend, p partner, s sibling, r parent, c colleague, m mentor, k kid
+   occ: b birthday, a anniversary, w wedding, f festival, t thanks, h housewarming, g graduation, e get well, y just because
+   style: p practical, s sentimental, f fun, t treat */
+const WHO = { f: 'friend', p: 'partner', s: 'sibling', r: 'parent', c: 'colleague', m: 'mentor', k: 'kid' };
+const OCC = { b: 'birthday', a: 'anniversary', w: 'wedding', f: 'festival', t: 'thanks', h: 'housewarming', g: 'graduation', e: 'getwell', y: 'any' };
+const STY = { p: 'practical', s: 'sentimental', f: 'fun', t: 'treat' };
+const expand = (str, map) => str.split(' ').map((k) => map[k]);
+const g = (name, why, tier, interests, who, occ, styles, term, diy) =>
+  ({ name, why, tier, interests: interests.split(' '), who: expand(who, WHO), occ: expand(occ, OCC), styles: expand(styles, STY), term, diy: diy || '' });
+const ALLO = 'b a w f t h g e y';
+const AD = 'f p s r c m'; // every adult group
+const GIFTS = [
+  // Tier 1: under ₹500
+  g('Scented soy candle', 'A calm, giftable classic. Pick a scent that feels like their favourite place.', 1, 'selfcare home', AD, ALLO, 't s', 'soy candle jar gift', 'Pour your own soy wax into a jar with a wick and a few drops of fragrance oil.'),
+  g('Hardcover journal and gel pen', 'For notes, plans and the thoughts that need somewhere to go.', 1, 'books craft', AD, ALLO, 'p', 'hardcover journal with pen set'),
+  g('Magnetic bookmark set', 'Small, pretty and useful for every reader.', 1, 'books', 'f s r c m k', 'b t g y', 'p f', 'magnetic bookmark set', 'Cut bookmarks from card, add a doodle and a short note, and laminate them.'),
+  g('Mini succulent plant kit', 'A desk plant that forgives a missed watering.', 1, 'home', 'f s r c m', 'b t h f e y', 'p', 'mini succulent plant kit'),
+  g('Friendship bracelet kit', 'Beads and thread to make bracelets together.', 1, 'craft fashion', 'f s k', 'b y', 'f', 'friendship bracelet making kit'),
+  g('Washi tape and sticker set', 'Cheerful extras for planners, notebooks and laptops.', 1, 'craft books', 'f s c k', 'b t y', 'f', 'washi tape sticker set'),
+  g('Lip balm and hand cream pair', 'A small self-care set that is easy to love.', 1, 'selfcare', AD, ALLO, 'p t', 'lip balm hand cream gift set'),
+  g('Tea sampler box', 'Several flavours to try on a quiet evening.', 1, 'food selfcare', AD, ALLO, 't', 'tea sampler gift box'),
+  g('Chocolate gift box', 'Easy, liked by almost everyone, works for any occasion.', 1, 'food', AD + ' k', ALLO, 't f', 'chocolate gift box'),
+  g('Warm fairy light string', 'Soft light for a bedroom, window or desk corner.', 1, 'home', 'f p s r k', 'b f h y', 's f', 'fairy lights string warm white', 'Wind the lights around a jar or a branch for a handmade lamp.'),
+  g('Small photo frame', 'Put a favourite photo of the two of you inside.', 1, 'memories home', 'f p s r', 'b a w h y', 's', 'small photo frame tabletop', 'Decorate a plain frame with dried flowers or paper cut-outs.'),
+  g('Guitar pick and capo set', 'A small gift for anyone who plays or wants to start.', 1, 'music', 'f p s', 'b y', 'f', 'guitar picks capo set'),
+  g('Luggage tags and passport cover', 'For the person with a trip coming up.', 1, 'travel', AD, 'b t g y', 'p', 'luggage tags passport cover set'),
+  g('Phone grip or cute phone case', 'Everyday use, and it shows you know their taste.', 1, 'tech fashion', 'f s c k', 'b y', 'f', 'phone grip holder'),
+  g('Festive diya decor set', 'Pretty lamps for the festive season.', 1, 'home', 's r f c m', 'f h', 's', 'festive diya decor set', 'Paint plain clay diyas with acrylic colours and let them dry.'),
+  g('Colouring book and pencil set', 'Quiet, creative time with no screens.', 1, 'craft', 'f s k', 'b e y', 'f', 'colouring book pencil set'),
+  g('Pocket puzzle game', 'A small brain teaser for trains, waiting rooms and breaks.', 1, 'gaming', 'f s c k', 'b e t y', 'f', 'pocket puzzle brain teaser'),
+  g('Scrunchie and hair clip set', 'Colourful, small and used every day.', 1, 'fashion', 'f s k', 'b y', 'f p', 'scrunchie hair clip set'),
+  g('Cosy socks', 'Soft and warm, a good get-well or winter gift.', 1, 'selfcare fashion', AD, 'b t f e y', 'p t', 'cosy fluffy socks'),
+  g('Reusable water bottle', 'Useful daily, and it travels with them.', 1, 'fitness', AD + ' k', 'b g t y', 'p', 'insulated water bottle'),
+  g('Resistance bands set', 'Easy home workouts without any big equipment.', 1, 'fitness', 'f p s c', 'b y', 'p', 'resistance bands set'),
+  g('Sticker album', 'A collector album that kids fill up over time.', 1, 'craft memories', 'k', 'b e y', 'f', 'sticker album kids'),
+  // Tier 2: ₹500 to ₹1,500
+  g('Photo wall clip string', 'Print favourite photos together and hang them on a wall.', 2, 'memories home', 'f p s r', 'b a w y', 's', 'photo clips string wall hanging', 'Print photos at home and clip them to a string of fairy lights.'),
+  g('Customised mug', 'A mug with a photo or a joke only you two understand.', 2, 'memories food', AD, 'b t a y', 's f', 'personalised photo mug'),
+  g('Skincare mini set', 'Gentle travel-size products to try.', 2, 'selfcare fashion', 'f p s r', 'b f a y', 't p', 'skincare gift set mini'),
+  g('Sketching and colouring set', 'Pencils, markers and a sketchbook for someone who draws.', 2, 'craft', 'f s k', 'b g y', 'f', 'sketch pencil set with sketchbook'),
+  g('Desk organiser', 'A tidy desk makes for calmer work days.', 2, 'home', 'c f s m', 't b g h y', 'p', 'desk organiser'),
+  g('Aroma diffuser', 'Soft scent and light for a room.', 2, 'selfcare home', 'r p f s', 'b f w h e y', 't', 'aroma diffuser lamp'),
+  g('Packing cubes set', 'Makes packing for trips less stressful.', 2, 'travel', AD, 'b t g y', 'p', 'packing cubes set'),
+  g('Card or board game for two', 'Evenings with friends or a partner, minus the phones.', 2, 'gaming memories', 'p f s k', 'b a y', 'f', 'two player board game'),
+  g('Snack hamper', 'A mix of snacks to share.', 2, 'food', 'r c f s m', 'f t b h e y', 't', 'snack gift hamper'),
+  g('Handmade pipe cleaner bouquet', 'A bouquet that never wilts. Buy from a small maker, or make it yourself.', 2, 'craft home', 'f p s r', ALLO, 's f', 'pipe cleaner flower bouquet', 'Twist and fluff pipe cleaners into petals, then wrap with tissue paper.'),
+  g('Earphones', 'Everyday listening for any music fan.', 2, 'music tech', AD, 'b g y', 'p', 'earphones'),
+  g('Paperback box set', 'A whole series to binge, from a genre they love.', 2, 'books', AD, 'b t e y', 'p t', 'paperback book box set'),
+  g('Serving bowl and plate set', 'Home essentials a couple will use daily.', 2, 'home food', 'r s f c', 'w h a', 'p', 'serving bowl set gift'),
+  g('Festive sweets and dry fruit box', 'A shareable box for the festive season.', 2, 'food', 'r s f c m', 'f', 't', 'festive sweets dry fruit gift box'),
+  g('Yoga mat', 'A good mat makes a regular practice easier.', 2, 'fitness selfcare', 'f p s r', 'b y', 'p', 'yoga mat'),
+  g('Tote bag and pouch set', 'Everyday carry in a fun print.', 2, 'fashion travel', 'f s c m', 'b t g y', 'p f', 'tote bag pouch set'),
+  g('Earrings and chain set', 'Simple pieces that go with most outfits.', 2, 'fashion', 'f p s r', 'b a f w y', 't s', 'earrings necklace gift set'),
+  g('Building-block or puzzle set', 'A long, absorbing build for a weekend.', 2, 'gaming craft', 'k f s', 'b e y', 'f', 'building blocks puzzle set'),
+  g('Sunglasses', 'A stylish pair for sunny days and trips.', 2, 'fashion', 'f p s', 'b y', 'p f', 'sunglasses'),
+  g('Plant with a pretty pot', 'Greenery for a desk, shelf or balcony.', 2, 'home', 'r f s c', 'h t b e', 's', 'indoor plant with pot'),
+  g('Wall art print set', 'A small gallery wall for an empty corner.', 2, 'home craft', 'f p s', 'h b a y', 's', 'wall art print set'),
+  g('Planner and sticker set', 'A year of plans, with stickers to make it pretty.', 2, 'books craft', 'f s c m', 'g b t y', 'p f', 'planner stickers set', 'Design and print your own planner pages, then punch and bind them.'),
+  g('Fountain pen', 'A good pen for letters, notes and signatures.', 2, 'books', 'c m r f', 'g t b', 'p t', 'fountain pen'),
+  g('Gaming mouse and pad', 'A smoother setup for long sessions.', 2, 'gaming tech', 'f s k', 'b y', 'p f', 'gaming mouse and mouse pad'),
+  g('Soft throw blanket', 'Warm, cosy and good for movie nights.', 2, 'selfcare home', AD, 'b h e f w y', 't p', 'soft throw blanket'),
+  g('Illustrated storybook set', 'A small stack of picture books to read together.', 2, 'books', 'k', 'b e y', 'f', 'illustrated storybook set kids'),
+  g('Art and craft box', 'Paper, glue, beads and ideas in one box.', 2, 'craft', 'k', 'b e y', 'f', 'kids art and craft kit'),
+  // Tier 3: ₹1,500 to ₹3,000
+  g('Bluetooth speaker', 'Music for a room, a trip or a balcony.', 3, 'music tech', AD, 'b g y', 'f p', 'bluetooth speaker'),
+  g('Weekender bag', 'For short trips and sleepovers.', 3, 'travel fashion', 'f p s r', 'b w a y', 'p', 'weekender bag'),
+  g('Spa and self-care hamper', 'A full set for a slow, restful evening.', 3, 'selfcare', AD, ALLO, 't', 'spa gift hamper'),
+  g('Star projector night lamp', 'Turns a ceiling into a night sky.', 3, 'home memories', 'f p s k', 'b a y', 'f s', 'star projector night lamp'),
+  g('Fitness band', 'Tracks steps, sleep and workouts.', 3, 'fitness tech', 'f p s r', 'b g y', 'p', 'fitness band'),
+  g('Ukulele for beginners', 'Small, friendly and easy to learn on.', 3, 'music', 'f s k p', 'b g y', 'f', 'ukulele beginner'),
+  g('Backpack', 'Strong enough for college, work and trips.', 3, 'fashion travel', 'f s k c', 'g b y', 'p', 'backpack'),
+  g('Handbag or wallet', 'A good everyday piece in a colour they like.', 3, 'fashion', 'f p s r', 'b a f y', 't p', 'handbag wallet'),
+  g('Coffee or tea brewing set', 'Make a proper cup at home.', 3, 'food home', 'r c f p m', 'h a t w', 'p t', 'coffee brewing set french press'),
+  g('Scrapbook or photo album', 'A place for photos, ticket stubs and handwritten notes.', 3, 'memories craft', 'p f s r', 'a w b g', 's', 'scrapbook photo album', 'Fill a blank scrapbook with printed photos, ticket stubs and notes.'),
+  g('Gaming headset', 'Clear sound and a mic for long sessions.', 3, 'gaming tech', 'f s k', 'b g y', 'p f', 'gaming headset'),
+  g('Dumbbell or kettlebell set', 'Home strength training made simple.', 3, 'fitness', 'f p s', 'b y', 'p', 'dumbbell set home gym'),
+  g('Kids science kit', 'Experiments they can do at the kitchen table.', 3, 'tech craft', 'k', 'b e y', 'f', 'kids science experiment kit'),
+  // Tier 4: ₹3,000 and up
+  g('Instant camera', 'Prints photos on the spot, good for trips and parties.', 4, 'memories tech travel', 'f p s r', 'b w a g y', 'f s', 'instant camera'),
+  g('E-reader', 'A whole library in one light device.', 4, 'books tech', 'f p s r m', 'b g y', 'p', 'e-reader'),
+  g('Drawing tablet', 'A first step into digital art for someone who sketches.', 4, 'craft tech', 'f s k', 'b g y', 'f', 'drawing tablet for beginners'),
+  g('Noise-cancelling headphones', 'Quiet for study, travel and long days.', 4, 'music tech', AD + ' k', 'b g a y', 'p t', 'noise cancelling headphones'),
+  g('Smartwatch', 'Notifications, fitness and time on the wrist.', 4, 'fitness tech', 'f p s r', 'b g a y', 'p', 'smartwatch'),
+  g('Cabin luggage trolley bag', 'A solid bag for flights and long trips.', 4, 'travel', 'f p s r', 'g b w a', 'p', 'cabin luggage trolley bag'),
+  g('Acoustic guitar for beginners', 'A first real instrument.', 4, 'music', 'f s k p', 'b g y', 'f', 'acoustic guitar beginner'),
+  g('Air fryer', 'A kitchen helper a new household will use often.', 4, 'food home', 'r s f', 'h w a', 'p', 'air fryer'),
+  g('Digital photo frame', 'Shows a loop of family photos.', 4, 'memories tech', 'r p f s', 'a b h f', 's', 'digital photo frame'),
+  g('Game controller', 'A good controller improves almost every game.', 4, 'gaming tech', 'f s k p', 'b g y', 'p f', 'wireless game controller'),
+  g('Silver or gold jewellery piece', 'A lasting piece for a big occasion.', 4, 'fashion', 'p r s', 'a w f b', 't s', 'silver jewellery gift'),
+  g('Perfume or premium skincare set', 'A treat they might not buy for themselves.', 4, 'selfcare fashion', 'p f s r', 'a b f w', 't', 'perfume gift set')
+];
+
+/* ===== Helpers ===== */
+const $ = (id) => document.getElementById(id);
+const rupee = (n) => '₹' + n.toLocaleString('en-IN');
+function build(containerId, name, options, type, opts) {
+  opts = opts || {};
+  const box = $(containerId);
+  box.innerHTML = '';
+  options.forEach(([value, label], i) => {
+    const l = document.createElement('label');
+    l.className = opts.tile ? 'tile' : 'chip';
+    if (opts.hue) l.dataset.h = opts.hue(value);
+    const input = document.createElement('input');
+    input.type = type; input.name = name; input.value = value; input.id = containerId + '-' + i;
+    if (opts.def === value) input.checked = true;
+    const s = document.createElement('span');
+    if (opts.icon) s.innerHTML = icon(opts.icon(value), 26);
+    if (opts.prefix) { const b = document.createElement('b'); b.className = 'rs'; b.textContent = opts.prefix(value); s.append(b); }
+    const t = document.createElement('span'); t.textContent = label; s.append(t);
+    l.append(input, s); box.append(l);
+  });
+}
+const entries = (o) => Object.entries(o);
+const checked = (name) => (document.querySelector('input[name="' + name + '"]:checked') || {}).value;
+
+/* ===== Gift finder ===== */
+build('q-who', 'who', entries(LABELS.who), 'radio');
+build('q-budget', 'budget', entries(LABELS.budget), 'radio', { prefix: (v) => '₹'.repeat(Number(v)) });
+build('q-interest', 'interest', entries(LABELS.interest), 'checkbox', { tile: true, icon: (v) => v, hue: (v) => HUE[v] });
+build('q-occasion', 'occasion', entries(LABELS.occasion), 'radio');
+build('q-style', 'vibe', entries(LABELS.style), 'radio');
+$('stats').innerHTML = '';
+[[GIFTS.length, 'gift ideas'], [Object.keys(LABELS.who).length, 'people'], [Object.keys(LABELS.occasion).length, 'occasions']].forEach(([n, t]) => {
+  const d = document.createElement('span'); d.className = 'stat';
+  const b = document.createElement('b'); b.textContent = n; d.append(b, t); $('stats').append(d);
+});
+
+let seed = 0;
+let shown = new Set();
+let saved = [];
+try { saved = JSON.parse(localStorage.getItem('aestra-shortlist') || '[]'); } catch (e) { saved = []; }
+function persist() { try { localStorage.setItem('aestra-shortlist', JSON.stringify(saved)); } catch (e) { /* storage unavailable */ } }
+
+$('q-interest').addEventListener('change', () => {
+  const boxes = [...document.querySelectorAll('#q-interest input')];
+  const full = boxes.filter((b) => b.checked).length >= 3;
+  boxes.forEach((b) => { b.disabled = full && !b.checked; });
+});
+
+const amazonLink = (term) => 'https://www.amazon.in/s?k=' + encodeURIComponent(term) + (CONFIG.amazonTag ? '&tag=' + encodeURIComponent(CONFIG.amazonTag) : '');
+function selection() {
+  return {
+    who: checked('who'), budget: Number(checked('budget')), occasion: checked('occasion'), style: checked('vibe'),
+    interests: [...document.querySelectorAll('#q-interest input:checked')].map((i) => i.value)
+  };
+}
+function rank(sel) {
+  const score = (x) => 2 * x.interests.filter((i) => sel.interests.includes(i)).length + (sel.style && x.styles.includes(sel.style) ? 1 : 0);
+  const tie = (i) => ((i + 1) * (seed + 3)) % 13;
+  const fresh = (x) => (seed > 0 && shown.has(x.name) ? 1 : 0);
+  const sorter = (a, b) => fresh(a.x) - fresh(b.x) || score(b.x) - score(a.x) || tie(a.i) - tie(b.i);
+  const idx = GIFTS.map((x, i) => ({ x, i }));
+  const fits = ({ x }) => x.who.includes(sel.who) && x.occ.includes(sel.occasion);
+  let out = idx.filter((o) => o.x.tier === sel.budget && fits(o)).sort(sorter);
+  if (out.length < 6) {
+    const have = new Set(out.map((o) => o.i));
+    out = out.concat(idx.filter((o) => !have.has(o.i) && Math.abs(o.x.tier - sel.budget) === 1 && fits(o)).sort(sorter));
+  }
+  if (out.length < 4) {
+    // Few matches (for example a kid and a wedding): offer the closest ideas for this person at any budget.
+    const have = new Set(out.map((o) => o.i));
+    out = out.concat(idx.filter((o) => !have.has(o.i) && o.x.who.includes(sel.who))
+      .sort((a, b) => Math.abs(a.x.tier - sel.budget) - Math.abs(b.x.tier - sel.budget) || sorter(a, b)));
+  }
+  return out.slice(0, 6).map((o) => o.x);
+}
+function renderGifts() {
+  const sel = selection();
+  const err = $('gift-err');
+  if (!sel.who || !sel.budget || !sel.occasion) { err.textContent = 'Choose who it is for, a budget and an occasion first.'; return; }
+  err.textContent = '';
+  const list = rank(sel);
+  list.forEach((x) => shown.add(x.name));
+  const grid = $('gift-grid');
+  grid.innerHTML = '';
+  $('results-title').textContent = 'Ideas for your ' + LABELS.who[sel.who].toLowerCase() + ', ' + LABELS.budget[sel.budget];
+  if (!list.length) grid.innerHTML = '<p class="fine">No ideas matched that mix. Try a different budget or occasion.</p>';
+  list.forEach((x) => {
+    const lead = x.interests.find((i) => sel.interests.includes(i)) || x.interests[0];
+    const card = document.createElement('article');
+    card.className = 'gift'; card.dataset.h = HUE[lead];
+    const art = document.createElement('div'); art.className = 'art'; art.innerHTML = icon(lead, 54);
+    const heart = document.createElement('button');
+    heart.type = 'button'; heart.className = 'save';
+    heart.innerHTML = icon('heart', 20);
+    const syncHeart = () => { const on = saved.includes(x.name); heart.setAttribute('aria-pressed', on); heart.setAttribute('aria-label', (on ? 'Remove from' : 'Add to') + ' shortlist: ' + x.name); };
+    syncHeart();
+    heart.addEventListener('click', () => { toggleSave(x.name); syncHeart(); });
+    const body = document.createElement('div'); body.className = 'body';
+    const h = document.createElement('h3'); h.textContent = x.name;
+    const p = document.createElement('p'); p.textContent = x.why;
+    body.append(h, p);
+    if (x.diy) { const d = document.createElement('p'); d.className = 'diy'; const b = document.createElement('b'); b.textContent = 'Make it yourself: '; d.append(b, x.diy); body.append(d); }
+    const tags = document.createElement('div'); tags.className = 'tags';
+    const t0 = document.createElement('span'); t0.className = 'tag price'; t0.textContent = LABELS.budget[x.tier]; tags.append(t0);
+    x.interests.filter((i) => sel.interests.includes(i)).forEach((i) => { const t = document.createElement('span'); t.className = 'tag'; t.textContent = LABELS.interest[i]; tags.append(t); });
+    if (sel.style && x.styles.includes(sel.style)) { const t = document.createElement('span'); t.className = 'tag'; t.textContent = LABELS.style[sel.style]; tags.append(t); }
+    const a = document.createElement('a');
+    a.className = 'btn'; a.href = amazonLink(x.term); a.target = '_blank'; a.rel = 'noopener sponsored'; a.textContent = 'Find on Amazon.in';
+    body.append(tags, a);
+    card.append(art, heart, body); grid.append(card);
+  });
+  $('gift-results').hidden = false;
+}
+function toggleSave(name) {
+  saved = saved.includes(name) ? saved.filter((n) => n !== name) : saved.concat(name);
+  persist(); renderShortlist();
+}
+function renderShortlist() {
+  const ul = $('shortlist-items'); ul.innerHTML = '';
+  saved.forEach((n) => {
+    const li = document.createElement('li'); li.append(n);
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = '×'; b.setAttribute('aria-label', 'Remove ' + n);
+    b.addEventListener('click', () => { toggleSave(n); document.querySelectorAll('.gift .save').forEach((s) => { if (s.getAttribute('aria-label').endsWith(': ' + n)) { s.setAttribute('aria-pressed', 'false'); s.setAttribute('aria-label', 'Add to shortlist: ' + n); } }); });
+    li.append(b); ul.append(li);
+  });
+  $('shortlist').hidden = saved.length === 0;
+}
+$('gift-form').addEventListener('submit', (e) => { e.preventDefault(); seed = 0; shown = new Set(); renderGifts(); $('gift-results').scrollIntoView({ block: 'start' }); });
+$('gift-shuffle').addEventListener('click', () => { seed += 1; renderGifts(); });
+$('gift-reset').addEventListener('click', () => {
+  $('gift-form').reset();
+  document.querySelectorAll('#q-interest input').forEach((b) => { b.disabled = false; });
+  $('gift-results').hidden = true; $('gift-err').textContent = '';
+});
+$('copy-list').addEventListener('click', async () => {
+  const text = 'My gift shortlist:\n' + saved.map((n) => { const x = GIFTS.find((y) => y.name === n); return '- ' + n + (x ? ' (' + amazonLink(x.term) + ')' : ''); }).join('\n');
+  try { await navigator.clipboard.writeText(text); $('list-status').textContent = 'Copied.'; }
+  catch (e) { $('list-status').textContent = 'Could not copy automatically. Long-press the names to copy them.'; }
+});
+renderShortlist();
+
+/* ===== Story studio ===== */
+(function buildStory() {
+  const fm = $('q-format'); fm.innerHTML = '';
+  entries(CONFIG.formats).forEach(([key, f]) => {
+    const l = document.createElement('label'); l.className = 'fmt';
+    const i = document.createElement('input'); i.type = 'radio'; i.name = 'format'; i.value = key; i.id = 'fmt-' + key; if (key === 'classic') i.checked = true;
+    const s = document.createElement('span');
+    const stack = key === 'mini' ? 1 : key === 'classic' ? 3 : 5;
+    let svg = '<svg viewBox="0 0 44 34" aria-hidden="true">';
+    for (let n = 0; n < stack; n++) svg += '<rect x="' + (2 + n * 6) + '" y="' + (4 - Math.min(n, 2)) + '" width="22" height="28" rx="3" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>';
+    svg += '</svg>';
+    s.innerHTML = svg;
+    const n = document.createElement('strong'); n.textContent = f.name;
+    const p = document.createElement('span'); p.className = 'fine'; p.textContent = f.pages;
+    const pr = document.createElement('span'); pr.className = 'pr'; pr.textContent = rupee(f.price);
+    s.append(n, p, pr); l.append(i, s); fm.append(l);
+  });
+  build('q-world', 'world', [['Everyday city life', 'Everyday city life'], ['Small village', 'Small village'], ['Fantasy kingdom', 'Fantasy kingdom'], ['Far-away planet', 'Far-away planet'], ['Magical forest', 'Magical forest']], 'radio', { def: 'Everyday city life' });
+  build('q-mood', 'mood', ['Cozy', 'Funny', 'Fantasy adventure', 'Emotional'].map((m) => [m, m]), 'radio', { def: 'Cozy' });
+  build('q-style-art', 'artstyle', ['Soft watercolour', 'Bold comic', 'Faceless and minimal', 'Storybook fantasy'].map((m) => [m, m]), 'radio', { def: 'Soft watercolour' });
+  build('q-lang', 'lang', [['English', 'English'], ['Hinglish', 'Hinglish']], 'radio', { def: 'English' });
+  const ad = $('q-addons'); ad.innerHTML = '';
+  entries(CONFIG.addons).forEach(([key, a]) => {
+    const l = document.createElement('label'); l.className = 'addon';
+    const i = document.createElement('input'); i.type = 'checkbox'; i.name = 'addon'; i.value = key; i.id = 'addon-' + key;
+    const s = document.createElement('span'); const b = document.createElement('b'); b.textContent = a.name + ' (+' + rupee(a.price) + ')';
+    const sm = document.createElement('small'); sm.className = 'fine'; sm.textContent = ' ' + a.note;
+    s.append(b, document.createElement('br'), sm); l.append(i, s); ad.append(l);
+  });
+  $('story-stats').innerHTML = '';
+  [[Object.keys(CONFIG.formats).length, 'formats'], [5, 'story worlds'], [2, 'languages']].forEach(([n, t]) => {
+    const d = document.createElement('span'); d.className = 'stat'; const b = document.createElement('b'); b.textContent = n; d.append(b, t); $('story-stats').append(d);
+  });
+})();
+
+function estimate() {
+  const fmt = CONFIG.formats[checked('format') || 'classic'];
+  const adds = [...document.querySelectorAll('input[name="addon"]:checked')].map((i) => i.value);
+  let total = fmt.price; let days = fmt.days;
+  const lines = [[fmt.name, fmt.price]];
+  adds.forEach((k) => { total += CONFIG.addons[k].price; lines.push([CONFIG.addons[k].name, CONFIG.addons[k].price]); if (k === 'rush') days = Math.ceil(days / 2); });
+  return { fmt, adds, total, days, lines };
+}
+function refresh() {
+  const e = estimate();
+  $('price').textContent = rupee(e.total);
+  const ul = $('price-lines'); ul.innerHTML = '';
+  e.lines.forEach(([n, p]) => { const li = document.createElement('li'); const a = document.createElement('span'); a.textContent = n; const b = document.createElement('span'); b.textContent = rupee(p); li.append(a, b); ul.append(li); });
+  $('price-note').textContent = 'Delivered as a PDF in about ' + e.days + ' days after we confirm the details.';
+  const d = new Date(); d.setDate(d.getDate() + e.days);
+  const pad = (n) => String(n).padStart(2, '0');
+  $('f-date').min = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+}
+$('story-form').addEventListener('change', refresh);
+refresh();
+
+$('story-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const err = $('story-err');
+  if (!$('f-consent').checked) { err.textContent = 'Please confirm the permission box to continue.'; return; }
+  err.textContent = '';
+  const est = estimate();
+  const v = (id) => $(id).value.trim();
+  const text = [
+    'Hi ' + CONFIG.brand + '! I would like a personalised story.',
+    '',
+    'Format: ' + est.fmt.name + ' (' + est.fmt.pages + ')',
+    'Hero: ' + v('f-for') + ' (' + $('f-pronoun').value + '), my ' + $('f-relation').value.toLowerCase(),
+    'Occasion: ' + $('f-occasion').value,
+    'World: ' + checked('world'),
+    'Mood: ' + checked('mood'),
+    'Art style: ' + checked('artstyle'),
+    'Language: ' + checked('lang'),
+    'Special skill: ' + (v('f-skill') || 'none'),
+    'Cameo: ' + (v('f-cameo') || 'none'),
+    'Extras: ' + (est.adds.length ? est.adds.map((k) => CONFIG.addons[k].name).join(', ') : 'none'),
+    'Needed by: ' + v('f-date'),
+    'Estimated price: ' + rupee(est.total),
+    '',
+    'Three true things about them:',
+    v('f-details'),
+    '',
+    'Message for the last page: ' + (v('f-message') || 'none'),
+    '',
+    'From: ' + v('f-name'),
+    'Contact: ' + v('f-contact'),
+    'I have their permission to share these details and I understand the art is AI-assisted.'
+  ].join('\n');
+  $('summary-text').value = text;
+  const help = ['Copy this request and send it to me'];
+  if (CONFIG.email) help.push('at ' + CONFIG.email);
+  help.push('so we can confirm the price and date.');
+  $('summary-help').textContent = help.join(' ') + ' Nothing is sent until you do.';
+  const wa = $('wa-link');
+  if (CONFIG.whatsapp) { wa.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(text); wa.hidden = false; } else { wa.hidden = true; }
+  $('copy-status').textContent = '';
+  $('summary').hidden = false;
+  $('summary').scrollIntoView({ block: 'start' });
+});
+$('copy-btn').addEventListener('click', async () => {
+  const ta = $('summary-text'); const st = $('copy-status');
+  try { await navigator.clipboard.writeText(ta.value); st.textContent = 'Copied. Now paste it into a message to me.'; }
+  catch (e) { ta.focus(); ta.select(); st.textContent = 'The text is selected. Copy it with your keyboard or the long-press menu.'; }
+});
+
+/* ===== Tabs (hash routing) ===== */
+function route() {
+  const name = location.hash === '#stories' ? 'stories' : 'gifts';
+  ['gifts', 'stories'].forEach((n) => {
+    $('view-' + n).hidden = n !== name;
+    const t = $('tab-' + n);
+    if (n === name) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
+  });
+  document.title = (name === 'stories' ? 'Story Studio' : 'Gift Finder') + ' · ' + CONFIG.brand;
+}
+window.addEventListener('hashchange', route);
+$('brand-name').textContent = CONFIG.brand;
+route();
+</script>
